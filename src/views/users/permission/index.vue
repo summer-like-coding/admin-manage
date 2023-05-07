@@ -71,7 +71,7 @@ const columns: Ref<DataTableColumns<UserManagement.Permission>> = ref([
       return <span></span>;
     }
   }
-]) as Ref<DataTableColumns<UserManagement.User>>;
+]) as Ref<DataTableColumns<UserManagement.Permission>>;
 
 const pagination: PaginationProps = reactive({
   page: 1,
