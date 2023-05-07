@@ -7,6 +7,7 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { getSrcPath } from '../utils';
 
+/** 图标在vite.config.js配置 */
 export default function unplugin(viteEnv: ImportMetaEnv) {
   const { VITE_ICON_PREFFIX, VITE_ICON_LOCAL_PREFFIX } = viteEnv;
 

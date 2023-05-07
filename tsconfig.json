@@ -22,7 +22,7 @@
       "node",
       "unplugin-icons/types/vue",
       "naive-ui/volar",
-      "unplugin-vue-define-options/macros-global"
+      "unplugin-vue-define-options/macros-global" // 可以在这个里面使用tsx语法
     ]
   },
   "exclude": ["node_modules", "dist"]

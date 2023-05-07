@@ -1,7 +1,8 @@
 /**
  * 根据用户权限过滤路由
  * @param routes - 权限路由
- * @param permission - 权限
+ * @param permission - 权限,super,root，admin
+ * 为啥permission总是super？想不明白
  */
 export function filterAuthRoutesByUserPermission(routes: AuthRoute.Route[], permission: Auth.RoleType) {
   return routes.map(route => filterAuthRouteByUserPermission(route, permission)).flat(1);
@@ -13,10 +14,10 @@ export function filterAuthRoutesByUserPermission(routes: AuthRoute.Route[], perm
  * @param permission - 权限
  */
 function filterAuthRouteByUserPermission(route: AuthRoute.Route, permission: Auth.RoleType): AuthRoute.Route[] {
+  // 避免修改route本身
   const filterRoute = { ...route };
   const hasPermission =
     !route.meta.permissions || permission === 'super' || route.meta.permissions.includes(permission);
-
   if (filterRoute.children) {
     const filterChildren = filterRoute.children.map(item => filterAuthRouteByUserPermission(item, permission)).flat(1);
     Object.assign(filterRoute, { children: filterChildren });

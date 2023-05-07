@@ -11,3 +11,16 @@ export function adapterOfFetchUserList(data: ApiUserManagement.User[] | null): U
     return user;
   });
 }
+
+export function adapterOfFetchPermissionList(data: ApiUserManagement.Permission[] | null): UserManagement.Permission[] {
+  if (!data) return [];
+
+  return data.map(item => {
+    const permissions: UserManagement.Permission = {
+      description: '描述',
+      ...item
+    };
+
+    return permissions;
+  });
+}

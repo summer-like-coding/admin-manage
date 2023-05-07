@@ -26,7 +26,9 @@ declare namespace UserManagement {
     /** 表格的key（id） */
     key: string;
   }
-
+  interface Permission extends ApiUserManagement.Permission {
+    description: '描述';
+  }
   /**
    * 用户性别
    * - 0: 女
@@ -42,4 +44,17 @@ declare namespace UserManagement {
    * - 4: 软删除
    */
   type UserStatusKey = NonNullable<User['userStatus']>;
+
+  /**
+   * 用户类型
+   * - 1: 启用
+   * - 2: 禁用
+   * - 3: 冻结
+   * - 4: 软删除
+   */
+  type type = NonNullable<User['type']>;
+  /**
+   * 用户角色
+   */
+  type RoleKey = NonNullable<User['role']>;
 }

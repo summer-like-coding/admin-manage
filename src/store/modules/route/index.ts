@@ -35,7 +35,7 @@ interface RouteState {
   /** 缓存的路由名称 */
   cacheRoutes: string[];
 }
-
+// console.log(staticRoutes);
 export const useRouteStore = defineStore('route-store', {
   state: (): RouteState => ({
     authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
@@ -80,14 +80,16 @@ export const useRouteStore = defineStore('route-store', {
     },
     /**
      * 处理权限路由
+     * 这里面的路由，是动态导入的，经过判断的权限路由
      * @param routes - 权限路由
      */
     handleAuthRoute(routes: AuthRoute.Route[]) {
+      // console.log('andleAuthRoute', routes);
       (this.menus as App.GlobalMenuOption[]) = transformAuthRouteToMenu(routes);
       this.searchMenus = transformAuthRouteToSearchMenus(routes);
-
+      // 动态路由处理权限问题
       const vueRoutes = transformAuthRouteToVueRoutes(routes);
-
+      // console.log('vueRouter', vueRoutes);
       vueRoutes.forEach(route => {
         router.addRoute(route);
       });
@@ -136,6 +138,8 @@ export const useRouteStore = defineStore('route-store', {
       const auth = useAuthStore();
 
       const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
+      // console.log(routes);
+
       this.handleAuthRoute(routes);
 
       initHomeTab(this.routeHomeName, router);

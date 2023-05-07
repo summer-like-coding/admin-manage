@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="ts">
+// 说可以在一个宏函数中设置 name, props, emits, render
 defineOptions({ name: 'ProjectIntroduction' });
 </script>
 

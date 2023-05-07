@@ -33,12 +33,6 @@ declare namespace PageRoute {
     | 'dashboard'
     | 'dashboard_analysis'
     | 'dashboard_workbench'
-    | 'document'
-    | 'document_naive'
-    | 'document_project-link'
-    | 'document_project'
-    | 'document_vite'
-    | 'document_vue'
     | 'exception'
     | 'exception_403'
     | 'exception_404'
@@ -57,6 +51,9 @@ declare namespace PageRoute {
     | 'multi-menu_first_second-new'
     | 'multi-menu_first_second-new_third'
     | 'multi-menu_first_second'
+    | 'picture'
+    | 'picture_group'
+    | 'picture_manage'
     | 'plugin'
     | 'plugin_charts'
     | 'plugin_charts_antv'
@@ -69,7 +66,11 @@ declare namespace PageRoute {
     | 'plugin_map'
     | 'plugin_print'
     | 'plugin_swiper'
-    | 'plugin_video';
+    | 'plugin_video'
+    | 'users'
+    | 'users_list'
+    | 'users_manage'
+    | 'users_permission';
 
   /**
    * last degree route key, which has the page file
@@ -91,11 +92,6 @@ declare namespace PageRoute {
     | 'component_table'
     | 'dashboard_analysis'
     | 'dashboard_workbench'
-    | 'document_naive'
-    | 'document_project-link'
-    | 'document_project'
-    | 'document_vite'
-    | 'document_vue'
     | 'exception_403'
     | 'exception_404'
     | 'exception_500'
@@ -108,6 +104,8 @@ declare namespace PageRoute {
     | 'management_user'
     | 'multi-menu_first_second-new_third'
     | 'multi-menu_first_second'
+    | 'picture_group'
+    | 'picture_manage'
     | 'plugin_charts_antv'
     | 'plugin_charts_echarts'
     | 'plugin_copy'
@@ -118,5 +116,8 @@ declare namespace PageRoute {
     | 'plugin_print'
     | 'plugin_swiper'
     | 'plugin_video'
+    | 'users_list'
+    | 'users_manage'
+    | 'users_permission'
   >;
 }

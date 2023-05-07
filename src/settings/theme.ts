@@ -42,7 +42,8 @@ const defaultThemeSetting: Theme.Setting = {
     mode: 'vertical',
     modeList: themeLayoutModeOptions
   },
-  scrollMode: 'content',
+  // 设置为外层滚动
+  scrollMode: 'wrapper',
   scrollModeList: themeScrollModeOptions,
   themeColor: themeColorList[0],
   themeColorList,

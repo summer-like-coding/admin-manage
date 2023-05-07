@@ -43,3 +43,12 @@ export const userStatusOptions: Common.OptionWithKey<UserManagement.UserStatusKe
   { value: '3', label: userStatusLabels['3'] },
   { value: '4', label: userStatusLabels['4'] }
 ];
+
+/**
+ * 用户角色
+ */
+
+export const roleLabels: Record<UserManagement.RoleKey, string> = {
+  0: '超级管理员',
+  1: '管理员'
+};

@@ -7,6 +7,10 @@ import { getLayoutComponent, getViewComponent } from './component';
  * @description 所有多级路由都会被转换成二级路由
  */
 export function transformAuthRouteToVueRoutes(routes: AuthRoute.Route[]) {
+  // 为什么会执行两次
+  // 因为这个在store/route/index.ts也使用了
+  // console.log(routes);
+
   return routes.map(route => transformAuthRouteToVueRoute(route)).flat(1);
 }
 
@@ -18,7 +22,7 @@ type ComponentAction = Record<AuthRoute.RouteComponentType, () => void>;
  */
 export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   const resultRoute: RouteRecordRaw[] = [];
-
+  // console.log('transformAuthRouteToVueRoute', item);
   const itemRoute = { ...item } as RouteRecordRaw;
 
   // 动态path
@@ -35,13 +39,16 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
   if (hasComponent(item)) {
     const action: ComponentAction = {
       basic() {
+        // console.log('basic');
         itemRoute.component = getLayoutComponent('basic');
       },
       blank() {
+        // console.log('blank');
         itemRoute.component = getLayoutComponent('blank');
       },
       multi() {
         // 多级路由一定有子路由
+        // console.log('multi');
         if (hasChildren(item)) {
           Object.assign(itemRoute, { meta: { ...itemRoute.meta, multi: true } });
           delete itemRoute.component;
@@ -55,6 +62,7 @@ export function transformAuthRouteToVueRoute(item: AuthRoute.Route) {
     };
     try {
       if (item.component) {
+        // console.log('item.component', action[item.component]);
         action[item.component]();
       } else {
         window.console.error('路由组件解析失败: ', item);

@@ -1,5 +1,5 @@
 /**
- * 权限路由排序
+ * 权限路由排序，根据meta里面的order进行判断
  * @param routes - 权限路由
  */
 export function sortRoutes(routes: AuthRoute.Route[]) {
@@ -13,8 +13,11 @@ export function sortRoutes(routes: AuthRoute.Route[]) {
 
 /**
  * 处理全部导入的路由模块
+ * 大概意思就是，因为moudles导出的不太适合作为routes：RouteRecordRaw[]，所以需要设置
  * @param modules - 路由模块
+ *
  */
+
 export function handleModuleRoutes(modules: AuthRoute.RouteModule) {
   const routes: AuthRoute.Route[] = [];
 

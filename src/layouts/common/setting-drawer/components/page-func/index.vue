@@ -80,6 +80,8 @@ import SettingMenu from '../setting-menu/index.vue';
 defineOptions({ name: 'PageFunc' });
 
 const theme = useThemeStore();
+
+console.log('模式', theme);
 </script>
 
 <style scoped></style>

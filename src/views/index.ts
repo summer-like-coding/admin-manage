@@ -18,11 +18,6 @@ export const views: Record<
   component_table: () => import('./component/table/index.vue'),
   dashboard_analysis: () => import('./dashboard/analysis/index.vue'),
   dashboard_workbench: () => import('./dashboard/workbench/index.vue'),
-  document_naive: () => import('./document/naive/index.vue'),
-  'document_project-link': () => import('./document/project-link/index.vue'),
-  document_project: () => import('./document/project/index.vue'),
-  document_vite: () => import('./document/vite/index.vue'),
-  document_vue: () => import('./document/vue/index.vue'),
   exception_403: () => import('./exception/403/index.vue'),
   exception_404: () => import('./exception/404/index.vue'),
   exception_500: () => import('./exception/500/index.vue'),
@@ -35,6 +30,8 @@ export const views: Record<
   management_user: () => import('./management/user/index.vue'),
   'multi-menu_first_second-new_third': () => import('./multi-menu/first/second-new/third/index.vue'),
   'multi-menu_first_second': () => import('./multi-menu/first/second/index.vue'),
+  picture_group: () => import('./picture/group/index.vue'),
+  picture_manage: () => import('./picture/manage/index.vue'),
   plugin_charts_antv: () => import('./plugin/charts/antv/index.vue'),
   plugin_charts_echarts: () => import('./plugin/charts/echarts/index.vue'),
   plugin_copy: () => import('./plugin/copy/index.vue'),
@@ -44,5 +41,8 @@ export const views: Record<
   plugin_map: () => import('./plugin/map/index.vue'),
   plugin_print: () => import('./plugin/print/index.vue'),
   plugin_swiper: () => import('./plugin/swiper/index.vue'),
-  plugin_video: () => import('./plugin/video/index.vue')
+  plugin_video: () => import('./plugin/video/index.vue'),
+  users_list: () => import('./users/list/index.vue'),
+  users_manage: () => import('./users/manage/index.vue'),
+  users_permission: () => import('./users/permission/index.vue')
 };

@@ -40,6 +40,7 @@ import { usePermission } from '@/composables';
 
 const app = useAppStore();
 const auth = useAuthStore();
+// 解构出函数，用于权限判断
 const { hasPermission } = usePermission();
 
 const options: SelectOption[] = userRoleOptions;
@@ -47,6 +48,7 @@ const options: SelectOption[] = userRoleOptions;
 watch(
   () => auth.userInfo.userRole,
   async () => {
+    // 页面刷新效果
     app.reloadPage();
   }
 );

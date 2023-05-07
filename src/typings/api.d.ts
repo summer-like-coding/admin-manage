@@ -23,6 +23,9 @@ declare namespace ApiRoute {
 }
 
 declare namespace ApiUserManagement {
+  /**
+   * 用户表
+   */
   interface User {
     /** 用户id */
     id: string;
@@ -48,5 +51,32 @@ declare namespace ApiUserManagement {
      * - 4: 软删除
      */
     userStatus: '1' | '2' | '3' | '4' | null;
+
+    /**
+     * 用户类型
+     * - 1: 启用
+     * - 2: 禁用
+     * - 3: 冻结
+     * - 4: 软删除
+     */
+    type: '1' | '2' | '3' | '4' | null;
+
+    /**
+     * 用户角色
+     * - 0：超级管理员
+     * - 1：管理员
+     */
+    role: '0' | '1' | null;
+  }
+  /**
+   * 权限表
+   */
+  interface Permission {
+    /** 权限id */
+    id: number;
+    /** 权限名 */
+    name: string | null;
+    /** 类型 */
+    type: '0' | '1' | null;
   }
 }

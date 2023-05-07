@@ -23,7 +23,7 @@
       }
     ]
   },
-  "scrollMode": "content",
+  "scrollMode": "wrapper",
   "scrollModeList": [
     {
       "value": "wrapper",
