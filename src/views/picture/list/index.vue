@@ -1,47 +1,57 @@
 <template>
   <n-grid cols="2 s:3 m:4 l:5 xl:6 2xl:7" responsive="screen" x-gap="16" y-gap="16">
-    <n-grid-item v-for="pic in picList" :key="pic.id">
-      <n-card :title="pic.description">
-        <template #cover>
-          <img :src="pic.url" />
-        </template>
-        卡片内容
-      </n-card>
-    </n-grid-item>
+    <n-skeleton v-if="loading" :repeat="6" height="200" />
+    <template v-else>
+      <n-grid-item v-for="pic in picList" :key="pic.id">
+        <n-card>
+          <n-image
+            :width="pic.size"
+            :src="pic.url"
+            fallback-src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
+          />
+          <template #footer>
+            <n-skeleton v-if="loading" text width="60%" />
+            <template v-else>编号: {{ pic.id }}</template>
+          </template>
+        </n-card>
+      </n-grid-item>
+    </template>
   </n-grid>
+  <page-pagination></page-pagination>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import useLoading from '~/src/hooks/common/use-loading';
 import { fetchPictureList } from '~/src/service/api/picture';
 
+// const PicSize = computed((size: string) => Number(size));
+
 let picList: PicManagement.Pic[] = reactive([]);
-const getPicList = async () => {
+// 使用loading加载
+const { loading, startLoading, endLoading } = useLoading(false);
+const getPicListData = async () => {
+  startLoading();
   const { data } = await fetchPictureList();
-  picList = data!;
+  if (data) {
+    setTimeout(() => {
+      picList = data;
+      endLoading();
+    }, 1000);
+  }
 };
 
 function init() {
-  getPicList();
+  getPicListData();
 }
 // 初始化
 init();
 </script>
 
 <style scoped>
-.light-green {
-  height: 108px;
-  background-color: rgba(0, 128, 0, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.green {
-  height: 108px;
-  background-color: rgba(0, 128, 0, 0.24);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.n-grid {
+  height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>
