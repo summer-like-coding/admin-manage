@@ -21,7 +21,9 @@ declare namespace ApiRoute {
     home: AuthRoute.AllRouteKey;
   }
 }
-
+/**
+ * 用户
+ */
 declare namespace ApiUserManagement {
   /**
    * 用户表
@@ -78,5 +80,38 @@ declare namespace ApiUserManagement {
     name: string | null;
     /** 类型 */
     type: '0' | '1' | null;
+  }
+}
+
+/**
+ * 图片
+ */
+declare namespace ApiPictureManage {
+  /**
+   * 图片
+   */
+  interface Pictures {
+    /** 图片ID */
+    id: number;
+    /** 目录ID */
+    catalog_id: number;
+    /** 动漫ID */
+    anime_id: number;
+    /** 创建者ID */
+    user_id: number;
+    /** 对应商品ID */
+    sku_id: number;
+    /** 图片名 */
+    name: string;
+    /** 描述 */
+    description: string;
+    /** 缩略图URL */
+    url: string;
+    /** 原图大小 */
+    // size: string;
+    /** 点赞 */
+    like_count: number;
+    /** 标签 */
+    tags: string;
   }
 }

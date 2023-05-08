@@ -4,6 +4,24 @@ const picture: AuthRoute.Route = {
   component: 'basic',
   children: [
     {
+      name: 'picture_upload',
+      path: '/picture/upload',
+      component: 'self',
+      meta: {
+        title: '图片上传',
+        icon: 'fluent:image-24-filled'
+      }
+    },
+    {
+      name: 'picture_list',
+      path: '/picture/list',
+      component: 'self',
+      meta: {
+        title: '图片列表',
+        icon: 'fluent:image-24-filled'
+      }
+    },
+    {
       name: 'picture_manage',
       path: '/picture/manage',
       component: 'self',
