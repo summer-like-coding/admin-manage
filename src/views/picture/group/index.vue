@@ -1,7 +1,76 @@
 <template>
-  <h3>图层管理</h3>
+  <div class="h-full overflow-hidden">
+    <n-card title="图层管理" class="h-full shadow-sm rounded-16px">
+      <n-space :vertical="true">
+        <loading-empty-wrapper class="h-480px" :loading="loading" :empty="empty">
+          <n-data-table :columns="columns" :data="dataSource" :flex-height="true" class="h-480px" />
+        </loading-empty-wrapper>
+      </n-space>
+    </n-card>
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="tsx">
+import { onMounted, ref } from 'vue';
+import { NSpace, NButton } from 'naive-ui';
+import type { DataTableColumn } from 'naive-ui';
+import { useLoadingEmpty } from '@/hooks';
+import { getRandomInteger } from '@/utils';
+
+interface DataSource {
+  name: string;
+  age: number;
+  address: string;
+}
+
+const { loading, startLoading, endLoading, empty, setEmpty } = useLoadingEmpty();
+
+const columns: DataTableColumn[] = [
+  {
+    title: '图片组',
+    key: 'name',
+    align: 'center'
+  },
+  {
+    key: 'action',
+    title: 'Action',
+    align: 'center',
+    render: () => {
+      return (
+        <NButton size={'small'} onClick={() => {}}>
+          增加新图片
+        </NButton>
+      );
+    }
+  }
+];
+
+const dataSource = ref<DataSource[]>([]);
+
+function createDataSource(): DataSource[] {
+  return Array(100)
+    .fill(1)
+    .map((_item, index) => {
+      return {
+        name: `Name${index}`,
+        age: getRandomInteger(30, 20),
+        address: '中国'
+      };
+    });
+}
+
+function getDataSource() {
+  startLoading();
+  setTimeout(() => {
+    dataSource.value = createDataSource();
+    endLoading();
+    setEmpty(!dataSource.value.length);
+  }, 1000);
+}
+
+onMounted(() => {
+  getDataSource();
+});
+</script>
 
 <style scoped></style>

@@ -22,15 +22,6 @@ const picture: AuthRoute.Route = {
       }
     },
     {
-      name: 'picture_manage',
-      path: '/picture/manage',
-      component: 'self',
-      meta: {
-        title: '图片管理',
-        icon: 'fluent:image-24-filled'
-      }
-    },
-    {
       name: 'picture_group',
       path: '/picture/group',
       component: 'self',
