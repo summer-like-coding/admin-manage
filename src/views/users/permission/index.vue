@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="tsx">
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { NTag } from 'naive-ui';
@@ -39,7 +39,6 @@ async function getTableData() {
     }, 1000);
   }
 }
-
 const columns: Ref<DataTableColumns<UserManagement.Permission>> = ref([
   {
     key: 'id',
@@ -92,7 +91,9 @@ function init() {
 }
 
 // 初始化
-init();
+onMounted(() => {
+  init();
+});
 </script>
 
 <style scoped></style>

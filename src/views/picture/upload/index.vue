@@ -26,7 +26,7 @@
               <!-- action:请求提交的地址，headers附加的头部 ,data需要附加的数据-->
               <n-button type="primary" @click="uploadPic"> 上传图片 </n-button>
             </n-upload>
-            <n-button type="warning"> 开始打码</n-button>
+            <n-button type="warning" @click="start_watermark"> 开始打码</n-button>
           </n-space>
         </n-space>
       </n-layout-sider>
@@ -70,15 +70,20 @@
         </n-form>
       </n-layout-content>
     </n-layout>
+    <mark-modal v-model:visible="visible"></mark-modal>
   </n-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import type { FormInst } from 'naive-ui';
+import { useBoolean } from '@/hooks';
+import { leaf_catalogues } from '@/service/api/picture';
+import markModal from './watermark/mark-modal.vue';
 
 const rightFormRef = ref<FormInst | null>(null);
-
+const { bool: visible, setTrue: openModal } = useBoolean();
+// 右侧数据
 const model = ref({
   inputValue: null,
   textareaValue: null,
@@ -102,7 +107,45 @@ const generalOptions = ['groode', 'veli good', 'emazing', 'lidiculous'].map(v =>
   label: v,
   value: v
 }));
+// 目录列表
+const catalogues = ref<PicManagement.Catalog[]>([]);
+
+/**
+ * 开始打码
+ */
+const start_watermark = (e: Event) => {
+  e.preventDefault();
+  // 开启模态框
+  openModal();
+};
+
+/**
+ * 上传图片
+ */
 const uploadPic = () => {};
+
+/**
+ * 获取目录列表
+ */
+const getCatlogues = async () => {
+  const { data } = await leaf_catalogues();
+  if (data) {
+    catalogues.value = data;
+  }
+};
+/**
+ * 初始化目录列表
+ */
+function init() {
+  getCatlogues();
+}
+
+/**
+ * 挂载
+ */
+onMounted(() => {
+  init();
+});
 </script>
 
 <style scoped>

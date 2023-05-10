@@ -94,7 +94,7 @@ declare namespace ApiPictureManage {
     /** 图片ID */
     id: number;
     /** 目录ID */
-    catalog_id: number;
+    catalog_id: number | undefined;
     /** 动漫ID */
     anime_id: number;
     /** 创建者ID */
@@ -104,7 +104,7 @@ declare namespace ApiPictureManage {
     /** 图片名 */
     name: string;
     /** 描述 */
-    description: string;
+    description: string | undefined;
     /** 缩略图URL */
     url: string;
     /** 原图大小 */
@@ -113,5 +113,53 @@ declare namespace ApiPictureManage {
     like_count: number;
     /** 标签 */
     tags: string;
+    /** 是否R18 */
+    is_r18: number;
+  }
+  /**
+   * 目录
+   */
+  interface Catalog {
+    /** 目录ID */
+    id: number;
+    /** 目录名 */
+    name: string;
+    /** 目录描述 */
+    description: string | undefined;
+    /** 类型 */
+    type: string;
+    /** 成员个数 */
+    member_count: number;
+    /** 图标 */
+    icon: string;
+    /** 父目录ID */
+    p_id: string | null;
+    /** 星级 */
+    stars: number;
+    /** 创建时间 */
+    created_at: string;
+    /** 更新时间 */
+    updated_at: string;
+  }
+  /**
+   * 标签
+   */
+  interface Tag {
+    /** 标签ID */
+    id: number;
+    /** 标签名 */
+    name: string;
+    /** 标签描述 */
+    description: string | undefined;
+    /** 类型 */
+    type: string;
+    /** 星级 */
+    star: number;
+    /** 颜色 */
+    color: string;
+    /** 图标 */
+    icon: string;
+    /** 状态 */
+    status: number;
   }
 }

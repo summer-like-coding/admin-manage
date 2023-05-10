@@ -6,8 +6,9 @@ const apis: MockMethod[] = [
   {
     url: '/mock/pictures',
     method: 'post',
-    response: (): Service.MockServiceResult<ApiPictureManage.Pictures[]> => {
-      // const { page, size, orderby = 'desc' } = options.body;
+    response: (options): Service.MockServiceResult<ApiPictureManage.Pictures[]> => {
+      // options.body;
+      console.log(options.body);
       const data = mock({
         'list|10': [
           {
