@@ -20,7 +20,7 @@ import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { NTag } from 'naive-ui';
 import { getchPermissionList } from '@/service';
 import { useLoading } from '@/hooks';
-import { roleLabels } from '~/src/constants';
+import { useRoleLabels } from '~/src/constants';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 
@@ -65,7 +65,7 @@ const columns: Ref<DataTableColumns<UserManagement.Permission>> = ref([
           '0': 'success',
           '1': 'error'
         };
-        return <NTag type={tagTypes[row.type]}>{roleLabels[row.type]}</NTag>;
+        return <NTag type={tagTypes[row.type]}>{useRoleLabels[row.type]}</NTag>;
       }
       return <span></span>;
     }

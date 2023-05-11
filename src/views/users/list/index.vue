@@ -19,7 +19,7 @@ import { reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
-import { genderLabels, roleLabels, userStatusLabels } from '@/constants';
+import { genderLabels, useRoleLabels, userStatusLabels } from '@/constants';
 import { fetchUserList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import TableActionModal from './components/table-action-modal.vue';
@@ -73,17 +73,17 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
     }
   },
   {
-    key: 'role',
+    key: 'roleId',
     title: '权限',
     align: 'center',
     render: row => {
-      if (row.role) {
+      if (row.roleId) {
         const tagTypes: Record<UserManagement.RoleKey, NaiveUI.ThemeColor> = {
           '0': 'success',
           '1': 'warning'
         };
 
-        return <NTag type={tagTypes[row.role]}>{roleLabels[row.role]}</NTag>;
+        return <NTag type={tagTypes[row.roleId]}>{useRoleLabels[row.roleId]}</NTag>;
       }
 
       return <span></span>;
@@ -100,11 +100,11 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
     align: 'center'
   },
   {
-    key: 'userStatus',
+    key: 'status',
     title: '状态',
     align: 'center',
     render: row => {
-      if (row.userStatus) {
+      if (row.status) {
         const tagTypes: Record<UserManagement.UserStatusKey, NaiveUI.ThemeColor> = {
           '1': 'success',
           '2': 'error',
@@ -112,7 +112,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
           '4': 'default'
         };
 
-        return <NTag type={tagTypes[row.userStatus]}>{userStatusLabels[row.userStatus]}</NTag>;
+        return <NTag type={tagTypes[row.status]}>{userStatusLabels[row.status]}</NTag>;
       }
       return <span></span>;
     }
@@ -151,7 +151,7 @@ function setEditData(data: UserManagement.User | null) {
   editData.value = data;
 }
 
-function handleEditTable(rowId: string) {
+function handleEditTable(rowId: number) {
   const findItem = tableData.value.find(item => item.id === rowId);
   if (findItem) {
     setEditData(findItem);
@@ -160,7 +160,7 @@ function handleEditTable(rowId: string) {
   openModal();
 }
 
-function handleDeleteTable(rowId: string) {
+function handleDeleteTable(rowId: number) {
   window.$message?.info(`点击了删除，rowId为${rowId}`);
 }
 

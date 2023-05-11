@@ -113,7 +113,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
     title: '状态',
     align: 'center',
     render: row => {
-      if (row.userStatus) {
+      if (row.status) {
         const tagTypes: Record<UserManagement.UserStatusKey, NaiveUI.ThemeColor> = {
           '1': 'success',
           '2': 'error',
@@ -121,7 +121,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
           '4': 'default'
         };
 
-        return <NTag type={tagTypes[row.userStatus]}>{userStatusLabels[row.userStatus]}</NTag>;
+        return <NTag type={tagTypes[row.status]}>{userStatusLabels[row.status]}</NTag>;
       }
       return <span></span>;
     }
@@ -136,7 +136,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
           <NButton size={'small'} onClick={() => handleEditTable(row.id)}>
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id)}>
+          <NPopconfirm onPositiveClick={() => handleDeleteTable(row.id as number)}>
             {{
               default: () => '确认删除',
               trigger: () => <NButton size={'small'}>删除</NButton>
@@ -165,7 +165,7 @@ function handleAddTable() {
   setModalType('add');
 }
 
-function handleEditTable(rowId: string) {
+function handleEditTable(rowId: number) {
   const findItem = tableData.value.find(item => item.id === rowId);
   if (findItem) {
     setEditData(findItem);
@@ -174,7 +174,7 @@ function handleEditTable(rowId: string) {
   openModal();
 }
 
-function handleDeleteTable(rowId: string) {
+function handleDeleteTable(rowId: number) {
   window.$message?.info(`点击了删除，rowId为${rowId}`);
 }
 

@@ -7,13 +7,13 @@ const apis: MockMethod[] = [
     url: '/mock/pictures',
     method: 'post',
     response: (options): Service.MockServiceResult<ApiPictureManage.Pictures[]> => {
-      // options.body;
-      console.log(options.body);
+      console.log('数据', options.body);
       const data = mock({
         'list|10': [
           {
             id: '@id',
             user_id: '@id',
+            size: '1024',
             name: '@cname',
             url: Random.image('200x100')
           }
@@ -29,16 +29,18 @@ const apis: MockMethod[] = [
   },
   // 获取详细信息
   {
-    url: '/mock/pictures',
+    url: '/mock/pictures/:id',
     method: 'post',
-    response: (): Service.MockServiceResult<ApiPictureManage.Pictures[]> => {
+    response: (options): Service.MockServiceResult<ApiPictureManage.Pictures[]> => {
+      // console.log('数据', options);
+
       const data = mock({
         'list|1': [
           {
-            id: '@id',
+            id: () => options.body.id,
             user_id: '@id',
             name: '@cname',
-            url: Random.image('200x100')
+            description: '@cparagraph'
           }
         ]
       });
@@ -67,6 +69,24 @@ const apis: MockMethod[] = [
         ]
       });
 
+      return {
+        code: 200,
+        message: 'ok',
+        data: data.list
+      };
+    }
+  },
+  // 发送临时图片
+  {
+    url: '/mock/imgs/temp/upload',
+    method: 'post',
+    response: options => {
+      console.log('数据', options.body);
+      const data = mock({
+        list: {
+          uuid: '@id'
+        }
+      });
       return {
         code: 200,
         message: 'ok',

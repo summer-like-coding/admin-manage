@@ -23,10 +23,12 @@ export const genderLabels: Record<UserManagement.GenderKey, string> = {
   0: '女',
   1: '男'
 };
-
+/**
+ * 用户性别选项
+ */
 export const genderOptions: Common.OptionWithKey<UserManagement.GenderKey>[] = [
-  { value: '0', label: genderLabels['0'] },
-  { value: '1', label: genderLabels['1'] }
+  { value: 0, label: genderLabels['0'] },
+  { value: 1, label: genderLabels['1'] }
 ];
 
 /** 用户状态 */
@@ -38,17 +40,21 @@ export const userStatusLabels: Record<UserManagement.UserStatusKey, string> = {
 };
 
 export const userStatusOptions: Common.OptionWithKey<UserManagement.UserStatusKey>[] = [
-  { value: '1', label: userStatusLabels['1'] },
-  { value: '2', label: userStatusLabels['2'] },
-  { value: '3', label: userStatusLabels['3'] },
-  { value: '4', label: userStatusLabels['4'] }
+  { value: 1, label: userStatusLabels['1'] },
+  { value: 2, label: userStatusLabels['2'] },
+  { value: 3, label: userStatusLabels['3'] },
+  { value: 4, label: userStatusLabels['4'] }
 ];
 
 /**
  * 用户角色
  */
-
-export const roleLabels: Record<UserManagement.RoleKey, string> = {
+export const useRoleLabels: Record<UserManagement.RoleKey, string> = {
   0: '超级管理员',
   1: '管理员'
 };
+
+export const useRoleOptions: Common.OptionWithKey<UserManagement.RoleKey>[] = [
+  { value: 0, label: useRoleLabels['0'] },
+  { value: 1, label: useRoleLabels['1'] }
+];

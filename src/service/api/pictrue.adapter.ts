@@ -6,7 +6,6 @@ export function adapterOfFetchPictureList(data: ApiPictureManage.Pictures[] | nu
 
   return data.map(item => {
     const picture: PicManagement.Pic = {
-      size: '200',
       ...item
     };
 
@@ -21,7 +20,6 @@ export function adapterOfFetchPicture(data: ApiPictureManage.Pictures | null): P
   if (!data) return null;
 
   const picture: PicManagement.Pic = {
-    size: '200',
     ...data
   };
 

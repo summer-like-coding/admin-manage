@@ -29,57 +29,56 @@ declare namespace ApiUserManagement {
    * 用户表
    */
   interface User {
-    /** 用户id */
-    id: string;
-    /** 用户名 */
-    userName: string | null;
-    /** 用户年龄 */
+    id: number;
+    description?: string | null; // 个性签名
+    roleId?: number; // 角色 ID
     age: number | null;
-    /**
-     * 用户性别
-     * - 0: 女
-     * - 1: 男
-     */
-    gender: '0' | '1' | null;
-    /** 用户手机号码 */
-    phone: string;
-    /** 用户邮箱 */
-    email: string | null;
-    /**
-     * 用户状态
-     * - 1: 启用
-     * - 2: 禁用
-     * - 3: 冻结
-     * - 4: 软删除
-     */
-    userStatus: '1' | '2' | '3' | '4' | null;
-
-    /**
-     * 用户类型
-     * - 1: 启用
-     * - 2: 禁用
-     * - 3: 冻结
-     * - 4: 软删除
-     */
-    type: '1' | '2' | '3' | '4' | null;
-
-    /**
-     * 用户角色
-     * - 0：超级管理员
-     * - 1：管理员
-     */
-    role: '0' | '1' | null;
+    nickname?: string;
+    username: string;
+    realname?: string | null; // 真实姓名
+    email?: string | null;
+    phone?: string | null;
+    avatar?: string | null;
+    gender?: number;
+    birthday?: string;
+    company?: string;
+    position?: string;
+    website?: string;
+    qq?: string;
+    wechat?: string;
+    facebook?: string;
+    twitter?: string;
+    youtube?: string;
+    whatsapp?: string;
+    tiktok?: string;
+    instagram?: string;
+    vipStatus?: number; // VIP 状态，枚举值
+    vipLevel?: number; // VIP 等级，枚举值
+    vipExpiredAt?: string; // VIP 过期时间，时间日期格式
+    rewardsPoints?: number; // 奖励积分
+    rewardsBalance?: string | null; // 余额，字符串格式，只有管理员查询时才返回
+    rewardsExp?: number; // 奖励经验值
+    tags?: string[]; // 用户标签列表
+    language?: string;
+    certificationStatus?: number;
+    certificationType?: number;
+    certificationInfo?: string;
+    type?: number | null;
+    star?: number;
+    status?: number;
+    createdAt?: string;
+    updatedAt?: string;
   }
   /**
    * 权限表
    */
   interface Permission {
-    /** 权限id */
     id: number;
-    /** 权限名 */
-    name: string | null;
-    /** 类型 */
-    type: '0' | '1' | null;
+    name: string;
+    description: string | null;
+    star?: number;
+    createdAt?: string;
+    updatedAt?: string;
   }
 }
 
@@ -91,55 +90,41 @@ declare namespace ApiPictureManage {
    * 图片
    */
   interface Pictures {
-    /** 图片ID */
     id: number;
-    /** 目录ID */
-    catalog_id: number | undefined;
-    /** 动漫ID */
-    anime_id: number;
-    /** 创建者ID */
-    user_id: number;
-    /** 对应商品ID */
-    sku_id: number;
-    /** 图片名 */
+    userId: number | null;
+    animeId: number | null;
+    catalogId: number | null;
+    skuId: number | null;
     name: string;
-    /** 描述 */
-    description: string | undefined;
-    /** 缩略图URL */
-    url: string;
-    /** 原图大小 */
-    // size: string;
-    /** 点赞 */
-    like_count: number;
-    /** 标签 */
-    tags: string;
-    /** 是否R18 */
-    is_r18: number;
+    description: string | null;
+    url: string | null;
+    size: string | null;
+    likeCount: number;
+    tags: string[] | null;
+    isR18: boolean;
+    copyright: string | null;
+    type: number | null;
+    star: number;
+    status: number | null;
+    pid: number | null;
+    createdAt?: number;
+    updatedAt?: number;
   }
   /**
    * 目录
    */
   interface Catalog {
-    /** 目录ID */
     id: number;
-    /** 目录名 */
     name: string;
-    /** 目录描述 */
-    description: string | undefined;
-    /** 类型 */
-    type: string;
-    /** 成员个数 */
-    member_count: number;
-    /** 图标 */
-    icon: string;
-    /** 父目录ID */
-    p_id: string | null;
-    /** 星级 */
-    stars: number;
-    /** 创建时间 */
-    created_at: string;
-    /** 更新时间 */
-    updated_at: string;
+    description: string | null;
+    icon: string | null;
+    color: string | null;
+    memberCount: number;
+    type: number | null;
+    star: number;
+    status: number | null;
+    createdAt: string;
+    updatedAt: string;
   }
   /**
    * 标签

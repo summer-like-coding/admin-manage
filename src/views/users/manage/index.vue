@@ -106,7 +106,7 @@ function setEditData(data: UserManagement.User | null) {
   editData.value = data;
 }
 
-function handleEditTable(rowId: string) {
+function handleEditTable(rowId: number) {
   const findItem = tableData.value.find(item => item.id === rowId);
   if (findItem) {
     setEditData(findItem);
@@ -114,7 +114,7 @@ function handleEditTable(rowId: string) {
   openModal();
 }
 
-function handleDeleteTable(rowId: string) {
+function handleDeleteTable(rowId: number) {
   window.$message?.info(`点击了删除，rowId为${rowId}`);
 }
 

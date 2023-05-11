@@ -17,10 +17,10 @@ export const fetchPictureList = async (page: number, size: number, orderby?: str
 
 /** 获取图片详细信息 */
 
-export const fetchPictureInfo = async (page: number, size: number, orderby?: string) => {
-  const data = await mockRequest.post<ApiPictureManage.Pictures[]>('/pictures', { page, size, orderby });
+export const fetchPictureInfo = async (id: number) => {
+  const data = await mockRequest.post<ApiPictureManage.Pictures>(`/pictures/${id}`, { id });
 
-  return adapter(adapterOfFetchPictureList, data);
+  return adapter(adapterOfFetchPicture, data);
 };
 /**
  * 创建目录，需要权限
@@ -36,7 +36,7 @@ export const create_catalogue = async (catalogue: ApiPictureManage.Catalog) => {
  * @returns 目录列表
  */
 export async function all_catalogues() {
-  const data = await mockRequest.post<ApiPictureManage.Catalog[]>('/catalogues/all');
+  const data = await mockRequest.post<ApiPictureManage.Catalog[]>('/catalogs/roots');
   return adapter(adapterOfFetchCatalogList, data);
 }
 
@@ -45,7 +45,7 @@ export async function all_catalogues() {
  * @returns 叶节点目录列表
  */
 export async function leaf_catalogues() {
-  const data = await mockRequest.post<ApiPictureManage.Catalog[]>('/catalogues/leaf');
+  const data = await mockRequest.post<ApiPictureManage.Catalog[]>('/catalogs/leaves');
   return adapter(adapterOfFetchCatalogList, data);
 }
 
@@ -74,19 +74,6 @@ export async function page_image(page: number) {
 export async function imgs_by_catalogue(catalogue_id: number) {
   const data = await mockRequest.post<ApiPictureManage.Pictures[]>(`/imgs/catalogue/${catalogue_id}`);
   return adapter(adapterOfFetchPictureList, data);
-}
-
-/**
- * 修改图片标签
- * @param id 图片 ID
- * @param tags 标签列表
- * @returns 被修改后的标签列表
- */
-export async function change_tags(id: string, tags: string[]) {
-  const data = await mockRequest.post<string[]>(`/imgs/${id}/change_tags`, {
-    tags
-  });
-  return data;
 }
 
 /**
@@ -152,14 +139,6 @@ export async function upload_wechat_image(file: File) {
   const form = new FormData();
   form.append('file', file);
   const data = await mockRequest.post<{ name: string }>('/imgs/wechat/upload', form);
-  return data;
-}
-
-/**
- * 删除无用标签
- */
-export async function delete_unused_tags() {
-  const data = await mockRequest.post<{ count: number }>(`/tags/delete/unused`);
   return data;
 }
 
@@ -301,44 +280,6 @@ export async function anim_item_detail(id: string, page: number, size: number) {
 }
 
 /**
- * 获取标签数量
- * @returns 标签数量
- */
-export async function tags_count() {
-  const data = await mockRequest.post<{ count: number }>('/tags/count');
-  return data;
-}
-
-/**
- * 分页标签列表
- * @param page 页码
- * @param pagesize 页大小
- * @returns 标签
- */
-export async function tags_page(page: number, size: number) {
-  const data = await mockRequest.post<ApiPictureManage.Tag[]>('/tags/page', {
-    page,
-    size
-  });
-  return data;
-}
-
-/**
- * 修改标签内容
- * @param tag 标签
- * @returns 被修改的标签
- */
-export async function tags_edit(tag: ApiPictureManage.Tag) {
-  const data = await mockRequest.post<ApiPictureManage.Tag>(`/tags/${tag.id}/edit`, {
-    name: tag.name,
-    desc: tag.description,
-    stars: tag.star,
-    tag_type: tag.type ? tag.type : undefined
-  });
-  return data;
-}
-
-/**
  * 返回根目录
  * @returns 返回根目录内容
  */
@@ -372,18 +313,6 @@ export async function catalogue_page(id: string, page: number, size: number) {
   const data = await mockRequest.post<ApiPictureManage.Pictures[]>(`/catalogues/${id}/page`, {
     page,
     size
-  });
-  return data;
-}
-
-/**
- * 查询标签
- * @param word 查询字符串
- * @returns 查询的标签
- */
-export async function search_tags(word: string) {
-  const data = await mockRequest.post<ApiPictureManage.Tag[]>(`/tags/search`, {
-    word
   });
   return data;
 }

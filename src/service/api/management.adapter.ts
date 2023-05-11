@@ -17,7 +17,7 @@ export function adapterOfFetchPermissionList(data: ApiUserManagement.Permission[
 
   return data.map(item => {
     const permissions: UserManagement.Permission = {
-      description: '描述',
+      type: 1,
       ...item
     };
 

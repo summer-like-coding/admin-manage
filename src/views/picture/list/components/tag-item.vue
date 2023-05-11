@@ -12,10 +12,10 @@ export interface TagProp {
 }
 // 定义tag类型
 export interface Props {
-  tag: string[];
+  tags: string[];
 }
 const props = withDefaults(defineProps<Props>(), {
-  tag: () => ['好物']
+  tags: () => ['好物']
 });
 
 // 使用emits
@@ -26,10 +26,11 @@ const emit = defineEmits<Emits>();
 // 使用
 const changeTag = computed({
   get() {
-    return props.tag;
+    return props.tags;
   },
   set(label) {
-    // console.log('添加tag');
+    console.log('label', label);
+
     emit('update:tags', label);
   }
 });
