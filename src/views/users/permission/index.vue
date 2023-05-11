@@ -32,6 +32,8 @@ function setTableData(data: UserManagement.Permission[]) {
 async function getTableData() {
   startLoading();
   const { data } = await getchPermissionList();
+  // console.log('获取权限列表', data);
+
   if (data) {
     setTimeout(() => {
       setTableData(data);

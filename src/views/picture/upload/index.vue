@@ -127,6 +127,7 @@ const customRequest = (_options: UploadCustomRequestOptions) => {
  */
 const getCatlogues = async () => {
   const { data } = await leaf_catalogues();
+
   if (data) {
     catalogues.value = data;
   }

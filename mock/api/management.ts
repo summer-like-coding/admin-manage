@@ -11,15 +11,15 @@ const apis: MockMethod[] = [
         'list|1000': [
           {
             id: '@id',
-            name: '@cname',
+            username: '@cname',
             'age|18-56': 56,
-            'role|1': ['0', '1'],
-            'gender|1': ['0', '1', null],
+            'roleId|1': [0, 1],
+            'gender|1': [0, 1, null],
             phone:
               /^[1](([3][0-9])|([4][01456789])|([5][012356789])|([6][2567])|([7][0-8])|([8][0-9])|([9][012356789]))[0-9]{8}$/,
             'email|1': ['@email("qq.com")', null],
-            'userStatus|1': ['1', '2', '3', '4', null],
-            'userType|1': ['1', '2', '3', '4', null]
+            'status|1': [1, 2, 3, 4, null],
+            'type|1': [1, 2, 3, 4, null]
           }
         ]
       });
@@ -63,14 +63,13 @@ const apis: MockMethod[] = [
   {
     url: '/mock/permissions',
     method: 'post',
-    response: (): Service.MockServiceResult<ApiUserManagement.User[]> => {
+    response: (): Service.MockServiceResult<ApiUserManagement.Permission[]> => {
       const data = mock({
         'list|10': [
           {
             id: '@id',
             'name|1': ['上传图片', '图片打码', '内容审核', '下载图片'],
-            description: '@csentence',
-            'type|1': ['0', '1', null]
+            description: '@csentence'
           }
         ]
       });

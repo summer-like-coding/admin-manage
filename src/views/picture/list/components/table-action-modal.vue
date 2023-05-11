@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { FormInst } from 'naive-ui';
 import tagItem from './tag-item.vue';
 const title = '修改图片信息';
@@ -65,7 +65,8 @@ export interface Props {
 
 defineOptions({ name: 'TableActionModal' });
 const props = withDefaults(defineProps<Props>(), {
-  visible: false
+  visible: false,
+  editData: null
 });
 interface Emits {
   (e: 'update:visible', visible: boolean): void;
@@ -81,20 +82,24 @@ const modalVisible = computed({
   }
 });
 
-// 表单数据
-const formRef = ref<FormInst | null>(null);
+type FormModel = Pick<PicManagement.Pic, 'name' | 'description' | 'likeCount' | 'isR18' | 'tags' | 'copyright'>;
 
-// 创建默认表单数据
-const model = {
-  id: 0,
-  name: '',
-  description: '',
-  likeCount: 0,
-  size: '200',
-  isR18: false,
-  tags: [''],
-  copyright: ''
-};
+// 表单数据
+const formRef = ref<HTMLElement & FormInst>();
+
+// 初始化表单数据
+function createDefaultFormModel() {
+  return {
+    name: '',
+    description: '',
+    copyright: '',
+    likeCount: 0,
+    isR18: false,
+    tags: ['']
+  };
+}
+
+const model = ref<FormModel>(createDefaultFormModel());
 
 const generalOptions = ref(['好物', '美食', '旅游', '风景', '人物', '动漫', '动物', '其他']);
 
@@ -108,6 +113,27 @@ const deletePic = () => {
 const deleteSource = () => {
   console.log('删除源文件');
 };
+// 获取表单数据
+const handleFormData = () => {
+  if (props.editData) {
+    // 设置表单数据
+    Object.assign(model, props.editData);
+    // 获取的值
+    console.log('model', model);
+  }
+};
+// 监听数据变化，然后获取表单数据
+watch(
+  () => props.visible,
+  newVal => {
+    if (newVal) {
+      // 获取表单数据
+      handleFormData();
+    }
+  }
+);
+
+// 这边还差点意思
 </script>
 
 <style scoped></style>

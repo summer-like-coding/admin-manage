@@ -9,7 +9,7 @@
         max-height="550"
         scroll-x="1200"
       />
-      <table-action-modal v-model:visible="visible" :type="modalType" :edit-data="editData" />
+      <table-action-modal v-model:visible="visible" :edit-data="editData" />
     </n-card>
   </div>
 </template>
@@ -23,7 +23,7 @@ import { genderLabels, useRoleLabels, userStatusLabels } from '@/constants';
 import { fetchUserList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import TableActionModal from './components/table-action-modal.vue';
-import type { ModalType } from './components/table-action-modal.vue';
+// import type { ModalType } from './components/table-action-modal.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
@@ -36,6 +36,7 @@ function setTableData(data: UserManagement.User[]) {
 async function getTableData() {
   startLoading();
   const { data } = await fetchUserList();
+
   if (data) {
     setTimeout(() => {
       setTableData(data);
@@ -51,7 +52,7 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
     align: 'center'
   },
   {
-    key: 'name',
+    key: 'username',
     title: '用户名',
     align: 'center'
   },
@@ -139,9 +140,9 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
   }
 ]) as Ref<DataTableColumns<UserManagement.User>>;
 
-const modalType = ref<ModalType>('add');
+const modalType = ref('edit');
 
-function setModalType(type: ModalType) {
+function setModalType(type: string) {
   modalType.value = type;
 }
 

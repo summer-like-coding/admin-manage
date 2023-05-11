@@ -40,22 +40,14 @@ import { formRules, createRequiredFormRule } from '@/utils';
 export interface Props {
   /** 弹窗可见性 */
   visible: boolean;
-  /**
-   * 弹窗类型
-   * add: 新增
-   * edit: 编辑
-   */
-  type?: 'add' | 'edit';
   /** 编辑的表格行数据 */
   editData?: UserManagement.User | null;
 }
 
-export type ModalType = NonNullable<Props['type']>;
-
 defineOptions({ name: 'TableActionModal' });
 
 const props = withDefaults(defineProps<Props>(), {
-  type: 'add',
+  type: 'edit',
   editData: null
 });
 
@@ -77,13 +69,7 @@ const closeModal = () => {
   modalVisible.value = false;
 };
 
-const title = computed(() => {
-  const titles: Record<ModalType, string> = {
-    add: '添加用户',
-    edit: '编辑用户'
-  };
-  return titles[props.type];
-});
+const title = '编辑用户';
 
 const formRef = ref<HTMLElement & FormInst>();
 
@@ -111,29 +97,18 @@ function createDefaultFormModel(): FormModel {
   };
 }
 
-function handleUpdateFormModel(model: Partial<FormModel>) {
-  Object.assign(formModel, model);
-}
-
-function handleUpdateFormModelByModalType() {
-  const handlers: Record<ModalType, () => void> = {
-    add: () => {
-      const defaultFormModel = createDefaultFormModel();
-      handleUpdateFormModel(defaultFormModel);
-    },
-    edit: () => {
-      if (props.editData) {
-        handleUpdateFormModel(props.editData);
-      }
-    }
-  };
-
-  handlers[props.type]();
+function handleUpdateEdit() {
+  if (props.editData) {
+    Object.assign(formModel, props.editData);
+    // console.log('原本数据', props.editData);
+    // console.log('formModel', formModel);
+  }
 }
 
 async function handleSubmit() {
   await formRef.value?.validate();
-  window.$message?.success('新增成功!');
+  window.$message?.success('修改成功!');
+  // console.log('数据', formModel);
   closeModal();
 }
 
@@ -141,7 +116,7 @@ watch(
   () => props.visible,
   newValue => {
     if (newValue) {
-      handleUpdateFormModelByModalType();
+      handleUpdateEdit();
     }
   }
 );
