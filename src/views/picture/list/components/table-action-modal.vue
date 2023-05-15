@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import type { FormInst } from 'naive-ui';
 import tagItem from './tag-item.vue';
 const title = '修改图片信息';
@@ -60,12 +60,11 @@ export interface Props {
   /** 弹窗可见性 */
   visible: boolean;
   /** 表单数据 */
-  editData: PicManagement.Pic | null;
+  editData?: PicManagement.Pic | null;
 }
 
 defineOptions({ name: 'TableActionModal' });
 const props = withDefaults(defineProps<Props>(), {
-  visible: false,
   editData: null
 });
 interface Emits {
@@ -73,6 +72,7 @@ interface Emits {
   (e: 'update:editData', editData: PicManagement.Pic | null): void;
 }
 const emit = defineEmits<Emits>();
+// 弹窗可见性
 const modalVisible = computed({
   get() {
     return props.visible;
@@ -81,8 +81,11 @@ const modalVisible = computed({
     emit('update:visible', visible);
   }
 });
-
-type FormModel = Pick<PicManagement.Pic, 'name' | 'description' | 'likeCount' | 'isR18' | 'tags' | 'copyright'>;
+// 关闭弹框
+const handleClose = () => {
+  modalVisible.value = false;
+};
+type Model = Pick<PicManagement.Pic, 'name' | 'description' | 'likeCount' | 'isR18' | 'tags' | 'copyright'>;
 
 // 表单数据
 const formRef = ref<HTMLElement & FormInst>();
@@ -99,7 +102,7 @@ function createDefaultFormModel() {
   };
 }
 
-const model = ref<FormModel>(createDefaultFormModel());
+const model = reactive<Model>(createDefaultFormModel());
 
 const generalOptions = ref(['好物', '美食', '旅游', '风景', '人物', '动漫', '动物', '其他']);
 
@@ -108,18 +111,18 @@ function handleSubmit() {
   emit('update:visible', false);
 }
 const deletePic = () => {
-  console.log('删除图片');
+  window.$message?.success('删除图片成功!');
+  handleClose();
 };
 const deleteSource = () => {
-  console.log('删除源文件');
+  window.$message?.success('删除源文件成功!');
+  handleClose();
 };
 // 获取表单数据
 const handleFormData = () => {
   if (props.editData) {
     // 设置表单数据
     Object.assign(model, props.editData);
-    // 获取的值
-    console.log('model', model);
   }
 };
 // 监听数据变化，然后获取表单数据
@@ -127,6 +130,7 @@ watch(
   () => props.visible,
   newVal => {
     if (newVal) {
+      // 问题：newVal会变化item个数次，会产生闪烁现象
       // 获取表单数据
       handleFormData();
     }

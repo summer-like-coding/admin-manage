@@ -32,15 +32,15 @@ const apis: MockMethod[] = [
     url: '/mock/pictures/:id',
     method: 'post',
     response: (options): Service.MockServiceResult<ApiPictureManage.Pictures[]> => {
-      // console.log('数据', options);
-
       const data = mock({
         'list|1': [
           {
             id: () => options.body.id,
             user_id: '@id',
             name: '@cname',
-            description: '@cparagraph'
+            description: '@cparagraph',
+            copyright: '开源',
+            'likeCount|1-200': 100
           }
         ]
       });

@@ -99,9 +99,8 @@ function createDefaultFormModel(): FormModel {
 
 function handleUpdateEdit() {
   if (props.editData) {
+    console.log('原本数据', props.editData);
     Object.assign(formModel, props.editData);
-    // console.log('原本数据', props.editData);
-    // console.log('formModel', formModel);
   }
 }
 
