@@ -24,3 +24,16 @@ export function adapterOfFetchPermissionList(data: ApiUserManagement.Permission[
     return permissions;
   });
 }
+// 用户权限表数据操作
+export function adapterOfFetchRolePermissionList(
+  data: ApiUserManagement.RolePermission | null
+): UserManagement.RolePermission {
+  if (!data) return {} as UserManagement.RolePermission;
+
+  const rolePermission: UserManagement.RolePermission = {
+    role: data.role,
+    permissions: data.permissions
+  };
+
+  return rolePermission;
+}

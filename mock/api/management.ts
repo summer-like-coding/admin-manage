@@ -33,7 +33,7 @@ const apis: MockMethod[] = [
   },
   // 获取所有角色role
   {
-    url: '/mock/getAllRoleList',
+    url: '/mock/roles',
     method: 'post',
     response: (): Service.MockServiceResult<ApiUserManagement.User[]> => {
       const data = mock({
@@ -78,6 +78,38 @@ const apis: MockMethod[] = [
         code: 200,
         message: 'ok',
         data: data.list
+      };
+    }
+  },
+  // 获取角色权限列表
+  {
+    url: '/mock/roles/:id',
+    method: 'post',
+    response: (options): Service.MockServiceResult<ApiUserManagement.RolePermission> => {
+      const data = mock({
+        role: {
+          id: () => options.body.id,
+          name: '@cname',
+          'type|1': ['1', '2', '3', '4', null],
+          description: '@csentence',
+          'updated_at|+1': 1,
+          'is_deleted|0-1': 1,
+          version: 0,
+          created_at: '@date()',
+          updated_at: '@date()'
+        },
+        'permissions|3': [
+          {
+            id: '@id',
+            'name|1': ['上传图片', '图片打码', '内容审核', '下载图片'],
+            description: '@csentence'
+          }
+        ]
+      });
+      return {
+        code: 200,
+        message: 'ok',
+        data
       };
     }
   }

@@ -23,7 +23,6 @@ import { genderLabels, useRoleLabels, userStatusLabels } from '@/constants';
 import { fetchUserList } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import TableActionModal from './components/table-action-modal.vue';
-// import type { ModalType } from './components/table-action-modal.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();

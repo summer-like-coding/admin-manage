@@ -20,10 +20,9 @@ import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui';
 import type { DataTableColumns, PaginationProps } from 'naive-ui';
 import { userStatusLabels } from '@/constants';
-import { fetchRoleList } from '@/service';
+import { fetchRoleList, fetchRoleDetail } from '@/service';
 import { useBoolean, useLoading } from '@/hooks';
 import TableActionModal from './components/table-action-modal.vue';
-// import type { ModalType } from './components/table-action-modal.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
 const { bool: visible, setTrue: openModal } = useBoolean();
@@ -100,16 +99,17 @@ const columns: Ref<DataTableColumns<UserManagement.User>> = ref([
   }
 ]) as Ref<DataTableColumns<UserManagement.User>>;
 
-const editData = ref<UserManagement.User | null>(null);
+const editData = ref<UserManagement.RolePermission | null>(null);
 
-function setEditData(data: UserManagement.User | null) {
+function setEditData(data: UserManagement.RolePermission | null) {
   editData.value = data;
 }
 
-function handleEditTable(rowId: number) {
-  const findItem = tableData.value.find(item => item.id === rowId);
-  if (findItem) {
-    setEditData(findItem);
+async function handleEditTable(rowId: number) {
+  // 根据id获取数据
+  const { data } = await fetchRoleDetail(rowId);
+  if (data) {
+    setEditData(data);
   }
   openModal();
 }

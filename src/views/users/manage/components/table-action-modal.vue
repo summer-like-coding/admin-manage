@@ -8,22 +8,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>上传图片</td>
+        <tr v-for="item in permissionList" :key="item.id">
+          <td>{{ item.name }}</td>
           <td>
-            <delete-button></delete-button>
-          </td>
-        </tr>
-        <tr>
-          <td>删除图片</td>
-          <td>
-            <delete-button></delete-button>
-          </td>
-        </tr>
-        <tr>
-          <td>下载图片</td>
-          <td>
-            <delete-button></delete-button>
+            <!-- delete icon -->
+            <svg-icon icon="fluent:delete-24-regular"></svg-icon>
           </td>
         </tr>
         <tr>
@@ -38,24 +27,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-// 导入删除按钮
-import deleteButton from '@/components/common/delete-button.vue';
+import { computed, watch, reactive } from 'vue';
 
 const title = '修改权限';
 export interface Props {
   /** 弹窗可见性 */
   visible: boolean;
+  /** 表单数据 */
+  editData: UserManagement.RolePermission | null;
 }
 
 defineOptions({ name: 'TableActionModal' });
 
 const props = withDefaults(defineProps<Props>(), {
-  visible: false
+  editData: null
 });
 
 interface Emits {
   (e: 'update:visible', visible: boolean): void;
+  (e: 'update:editData', editData: UserManagement.RolePermission | null): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -68,12 +58,29 @@ const modalVisible = computed({
     emit('update:visible', visible);
   }
 });
+// 权限列表
+let permissionList = reactive<any>([]);
+// 获取表单数据
+const handleEditTable = () => {
+  if (props.editData) {
+    // console.log(props.editData);
+    permissionList = props.editData.permissions;
+  }
+};
 
 // 新增权限
 const addPermission = () => {
   console.log('新增权限');
   // 让所有权限成为一个数组，然后，监听数组变化
 };
+
+// 监听数据变化，然后获取props数据
+watch(
+  () => props.editData,
+  newVal => {
+    if (newVal) handleEditTable();
+  }
+);
 </script>
 
 <style scoped></style>

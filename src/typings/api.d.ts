@@ -90,6 +90,11 @@ declare namespace ApiUserManagement {
     createdAt: string;
     updatedAt: string;
   }
+  /** 角色权限表 */
+  interface RolePermission {
+    role: Role;
+    permissions: Permission[];
+  }
 }
 
 /**

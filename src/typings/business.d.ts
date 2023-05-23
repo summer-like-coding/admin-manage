@@ -30,6 +30,7 @@ declare namespace UserManagement {
     /** 类型 */
     type: number;
   }
+  interface RolePermission extends ApiUserManagement.RolePermission {}
   /**
    * 用户性别
    * - 0: 女
