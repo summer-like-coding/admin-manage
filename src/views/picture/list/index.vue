@@ -37,7 +37,8 @@ const { loading, startLoading, endLoading } = useLoading(false);
 // 设置currentPage和pageSize
 const page_query: paginationManagement.OrderedPageQuery = reactive({
   page: 1,
-  size: 50
+  size: 50,
+  orderby: 'desc'
 });
 
 // 设置修改的数据
@@ -45,6 +46,7 @@ const editData = ref<PicManagement.Pic | null>(null);
 
 const getPicListData = async () => {
   startLoading();
+  // 获取图片列表时，没有带上orderby
   const { data } = await fetchPictureList(page_query.page, page_query.size);
   if (data) {
     setTimeout(() => {

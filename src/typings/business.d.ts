@@ -58,4 +58,28 @@ declare namespace UserManagement {
    * 用户角色
    */
   type RoleKey = NonNullable<User['roleId']>;
+  /**
+   * 用户权限类型
+   */
+  enum PermissionType {
+    DEFAULT, // 默认，无内容
+    LOGIN_DEFAULT, // 默认登录用户所拥有的基本权限
+    LOGIN_ADMIN, // 管理员登录所拥有的基本权限
+    CURRENT_USER, // 当前登录用户所拥有的权限，逻辑校验
+    CREATE_ROLE, // 创建角色
+    DELETE_ROLE, // 删除角色
+    MODIFY_ROLE, // 修改角色信息
+    UPLOAD_PICTURE, // 上传图片
+    DOWNLOAD_PICTURE, // 下载图片
+    DELETE_PICTURE, // 删除图片
+    MODFIY_PICTURE, // 修改图片信息
+    REUPLOAD_PICTURE, // 重新上传图片
+    CREATE_PICTURE_TAG, // 创建图片标签
+    BACKUPS_PICTURE, // 备份图片
+    CREATE_USER, // 创建用户
+    DELETE_USER, // 删除用户
+    MODIFY_USER, // 修改用户信息
+    QUERY_ORDERS, // 查询订单
+    MODIFY_ORDER // 修改订单信息
+  }
 }

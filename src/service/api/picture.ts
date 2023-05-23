@@ -1,12 +1,7 @@
 // 设置picture的api
 import { adapter } from '@/utils';
 import { mockRequest } from '../request';
-import {
-  adapterOfFetchCatalog,
-  adapterOfFetchCatalogList,
-  adapterOfFetchPicture,
-  adapterOfFetchPictureList
-} from './pictrue.adapter';
+import { adapterOfFetchPicture, adapterOfFetchPictureList } from './pictrue.adapter';
 
 /** 获取图片列表 */
 export const fetchPictureList = async (page: number, size: number, orderby?: string) => {
@@ -22,32 +17,6 @@ export const fetchPictureInfo = async (id: number) => {
 
   return adapter(adapterOfFetchPicture, data);
 };
-/**
- * 创建目录，需要权限
- * @returns 目录创建结果
- */
-export const create_catalogue = async (catalogue: ApiPictureManage.Catalog) => {
-  const data = await mockRequest.post<ApiPictureManage.Catalog>('/catalogues/create', catalogue);
-  return adapter(adapterOfFetchCatalog, data);
-};
-
-/**
- * 获取所有目录，不需要权限
- * @returns 目录列表
- */
-export async function all_catalogues() {
-  const data = await mockRequest.post<ApiPictureManage.Catalog[]>('/catalogs/roots');
-  return adapter(adapterOfFetchCatalogList, data);
-}
-
-/**
- * 获取叶节点目录
- * @returns 叶节点目录列表
- */
-export async function leaf_catalogues() {
-  const data = await mockRequest.post<ApiPictureManage.Catalog[]>('/catalogs/leaves');
-  return adapter(adapterOfFetchCatalogList, data);
-}
 
 /**
  * @returns 全部图片信息

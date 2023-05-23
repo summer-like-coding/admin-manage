@@ -80,6 +80,16 @@ declare namespace ApiUserManagement {
     createdAt?: string;
     updatedAt?: string;
   }
+  /** 角色表 */
+  interface Role {
+    id: number;
+    name: string;
+    description: string | null;
+    type: number | null;
+    star: number;
+    createdAt: string;
+    updatedAt: string;
+  }
 }
 
 /**
@@ -146,5 +156,25 @@ declare namespace ApiPictureManage {
     icon: string;
     /** 状态 */
     status: number;
+  }
+  /**
+   * 动漫
+   */
+  interface Anime {
+    id: number;
+    name: string;
+    alias: string | null;
+    description: string | null;
+    cover: string | null;
+    series: string | null;
+    url: string | null;
+    tags: string[] | null;
+    type: number | null;
+    star: number;
+    status: number | null;
+    pid: number | null;
+    isDeleted: boolean;
+    createdAt?: number;
+    updatedAt?: number;
   }
 }

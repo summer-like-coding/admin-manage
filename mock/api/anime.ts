@@ -3,13 +3,13 @@ import type { MockMethod } from 'vite-plugin-mock';
 
 const apis: MockMethod[] = [
   /**
-   * @description 获取所有子目录
+   * @description 获取所有子目录，用于和图片匹配
    *
    */
   {
-    url: '/mock/animes/leaves',
+    url: '/mock/catalogs/leaves',
     method: 'post',
-    response: (): Service.MockServiceResult<ApiPictureManage.Anime[]> => {
+    response: (): Service.MockServiceResult<ApiPictureManage.Catalog[]> => {
       const data = mock({
         'list|10': [
           {
